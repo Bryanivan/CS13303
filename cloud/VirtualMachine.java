@@ -27,6 +27,10 @@ public class VirtualMachine {
 	 */
 	HashMap<Integer, HardDiskDrive> hdds;            // Discos duros virtuales
 
+
+	private static final int MIN_CPUS = 1;
+	private static final long MIN_MEMORY = 1024;
+	private static final int MIN_NAME_LEN = 5;
 	/*
 	 * VirtualMachine[6]
 	 * Constructor debe validar lo siguiente:
@@ -37,7 +41,21 @@ public class VirtualMachine {
 	 */
 	VirtualMachine(int cpuCount, long memoryGB, String guestOS){
 		// Escribe tu código {
-		
+		if (cpuCount < MIN_CPUS) {
+			this.cpuCount = MIN_CPUS;
+			System.err.println("La cantidad minima de CPUs es "+ MIN_CPUS);
+		}
+
+		if (memoryGB < MIN_MEMORY && memoryGB % MIN_MEMORY != 0) {
+			this.memoryGB = MIN_MEMORY;
+			System.err.println("La cantidad minima de memoria es  "+ MIN_MEMORY);
+			System.err.println("La cantidad de memoria debe ser multiplo de "+ MIN_MEMORY);
+		}
+
+		if (guestOS.length() < MIN_NAME_LEN) {
+			System.err.println("La longitud minima del Guest OS es  "+ MIN_NAME_LEN);
+			
+		}
 		this.guestOS = guestOS;
 		// }
 		this.id = CloudUtil.getUUID();
@@ -89,7 +107,8 @@ public class VirtualMachine {
 	void powerOn() {
 		/* Encender la VM */
 		// Escribe tu código {
-
+			this.powerStatus = true;
+			System.out.println("La maquina virtual esta encendida");
 		// }
 		}
 	
@@ -100,7 +119,8 @@ public class VirtualMachine {
 	 */
 	void powerOff() {
 		// Escribe tu código {
-
+			this.powerStatus = false;
+			System.out.println("La maquina virtual esta apagada");
 		// }
 		}
 	
@@ -116,7 +136,7 @@ public class VirtualMachine {
 	void addNIC(NetworkCard nic) {
 		/* Agregar NIC a la VM */
 		// Escribe tu código {
-
+			this.nics.put(nic.unitNumber, nic);
 		// }
 		}
 	
@@ -128,7 +148,7 @@ public class VirtualMachine {
 	void addNICs(HashMap<Integer, NetworkCard> nics){
 		/* Inicializar nics con un arrayList*/
 		// Escribe tu código {
-
+			this.nics = nics;
 		// }
 	}
 	
