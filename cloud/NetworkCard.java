@@ -56,10 +56,10 @@ public class NetworkCard {
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		// Escribe tu código {
-	sb.append("Etiqueta:  ").append(this.label).append("\n") ; 
-	sb.append("Unidad:    ").append(this.unitNumber).append("\n")   ; 
-	sb.append("MAC      : ").append(this.macAddress).append("\n")      ; 
-	sb.append("Network:   ").append(this.Network).append("\n")  ; 
+	sb.append("Etiqueta:  ").append(this.label).append("\n"); 
+	sb.append("Unidad:    ").append(this.unitNumber).append("\n"); 
+	sb.append("MAC      : ").append(this.macAddress).append("\n"); 
+	sb.append("Network:   ").append(this.network).append("\n"); 
 	sb.append("Velocidad: ").append(this.speedMb).append("\n");
 		// }
 		return sb.toString();
