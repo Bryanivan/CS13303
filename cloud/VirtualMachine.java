@@ -64,7 +64,27 @@ public class VirtualMachine {
 	VirtualMachine(int cpuCount, long memoryGB, String name, String guestOS){
 		// Escribe tu código {
 		
+		if (cpuCount < MIN_CPUS) {
+			this.cpuCount = MIN_CPUS;
+			System.err.println("La cantidad minima de CPUs es "+ MIN_CPUS);
+		}
+
+		if (memoryGB < MIN_MEMORY && memoryGB % MIN_MEMORY != 0) {
+			this.memoryGB = MIN_MEMORY;
+			System.err.println("La cantidad minima de memoria es  "+ MIN_MEMORY);
+			System.err.println("La cantidad de memoria debe ser multiplo de "+ MIN_MEMORY);
+		}
+
+		if (guestOS.length() < MIN_NAME_LEN) {
+			System.err.println("La longitud minima del Guest OS es  "+ MIN_NAME_LEN);
+			
+		}
+		if (name.length() < MIN_NAME_LEN) {
+			System.err.println("La longitud minima del nombre es  "+ MIN_NAME_LEN);
+			
+		}
 		this.guestOS = guestOS;
+		this.name = name;
 		// }
 		this.id = CloudUtil.getUUID();
 	}
@@ -80,7 +100,7 @@ public class VirtualMachine {
 	boolean isPoweredOn() {
 		/* Validar si la VM está prendida */
 		// Escribe tu código {
-
+			return this.powerStatus;
 		// }
 		}
 	/*
@@ -91,6 +111,7 @@ public class VirtualMachine {
 	boolean isPoweredOff(){
 		// Escribe tu código {
 
+			return !this.powerStatus;
 		// }
 	}
 	
@@ -160,15 +181,21 @@ public class VirtualMachine {
 	void addHDD(HardDiskDrive hdd){
 		/* Agregar HDD a la VM */
 		// Escribe tu código {
-
+			this.hdds.put(hdd.unitNumber, hdd);
 		// }	
 	}
 	
 	void addHDDs(HashMap<Integer, HardDiskDrive> hdds){
 		/* Agregar HDDs a la VM */
 		// Escribe tu código {
-
+			this.hdds = hdds;
 		// }	
+	}
+
+
+	String status ()
+	{
+		return (isPoweredOn()) ? "Encendido" : "Apagado" ;
 	}
 	/*
 	 * VirtualMachine[7]
@@ -183,7 +210,14 @@ public class VirtualMachine {
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
 		// Escribe tu código {
-
+			sb.append("Nombre   :").append(this.name).append("\n"); 
+			sb.append("CPU      :").append(this.cpuCount).append("\n");
+			sb.append("Memoria  :").append(this.memoryGB).append("\n") ;
+			sb.append("OS       :").append(this.guestOS).append("\n") ;
+			sb.append("Estado   :").append(status()).append("\n") ;
+			sb.append("ID       :").append(this.id).append("\n") ;
+			sb.append("NICs     :").append("").append("\n") ;
+			sb.append("HDDs     :").append("").append("\n") ;
 		// }
 		return sb.toString();
 	}
